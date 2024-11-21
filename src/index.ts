@@ -213,11 +213,10 @@ export default class ImageTool implements BlockTool {
   public save(): ImageToolData {
     const caption = this.ui.nodes.caption;
 
-    if (this.config.features?.caption === true || this.config.features?.caption === undefined || (this.config.features?.caption === 'optional' && this.data.caption)) {
-      this._data.caption = caption.innerHTML;
-    }
-
-    return this.data;
+    return {
+      ...this._data,
+      caption: caption.innerHTML,
+    };
   }
 
   /**

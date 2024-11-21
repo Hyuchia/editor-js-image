@@ -905,9 +905,11 @@ class P {
    * Return Block data
    */
   save() {
-    var a, s, r;
     const i = this.ui.nodes.caption;
-    return (((a = this.config.features) == null ? void 0 : a.caption) === !0 || ((s = this.config.features) == null ? void 0 : s.caption) === void 0 || ((r = this.config.features) == null ? void 0 : r.caption) === "optional" && this.data.caption) && (this._data.caption = i.innerHTML), this.data;
+    return {
+      ...this._data,
+      caption: i.innerHTML
+    };
   }
   /**
    * Returns configuration for block tunes: add background, add border, stretch image
