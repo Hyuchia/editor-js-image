@@ -7,7 +7,7 @@ function M(C, i = null, a = {}) {
     a.hasOwnProperty(r) && (s[r] = a[r]);
   return s;
 }
-var S = /* @__PURE__ */ ((C) => (C.Empty = "empty", C.Uploading = "uploading", C.Filled = "filled", C))(S || {});
+var _ = /* @__PURE__ */ ((C) => (C.Empty = "empty", C.Uploading = "uploading", C.Filled = "filled", C))(_ || {});
 class U {
   /**
    * @param ui - image tool Ui module
@@ -124,8 +124,8 @@ class U {
    * @param status - see {@link Ui.status} constants
    */
   toggleStatus(i) {
-    for (const a in S)
-      Object.prototype.hasOwnProperty.call(S, a) && this.nodes.wrapper.classList.toggle(`${this.CSS.wrapper}--${S[a]}`, i === S[a]);
+    for (const a in _)
+      Object.prototype.hasOwnProperty.call(_, a) && this.nodes.wrapper.classList.toggle(`${this.CSS.wrapper}--${_[a]}`, i === _[a]);
   }
 }
 function D(C) {
@@ -666,7 +666,7 @@ var H = { exports: {} };
   });
 })(H);
 var q = H.exports;
-const _ = /* @__PURE__ */ D(q);
+const S = /* @__PURE__ */ D(q);
 function O(C) {
   return C !== void 0 && typeof C.then == "function";
 }
@@ -695,13 +695,13 @@ class A {
     let s;
     if (this.config.uploader && typeof this.config.uploader.uploadByFile == "function") {
       const r = this.config.uploader.uploadByFile;
-      s = _.selectFiles({ accept: this.config.types ?? "image/*" }).then((e) => {
+      s = S.selectFiles({ accept: this.config.types ?? "image/*" }).then((e) => {
         a(e[0]);
         const o = r(e[0]);
         return O(o) || console.warn("Custom uploader method uploadByFile should return a Promise"), o;
       });
     } else
-      s = _.transport({
+      s = S.transport({
         url: this.config.endpoints.byFile,
         data: this.config.additionalRequestData,
         accept: this.config.types ?? "image/*",
@@ -724,12 +724,12 @@ class A {
    */
   uploadByUrl(i) {
     let a;
-    this.config.uploader && typeof this.config.uploader.uploadByUrl == "function" ? (a = this.config.uploader.uploadByUrl(i), O(a) || console.warn("Custom uploader method uploadByUrl should return a Promise")) : a = _.post({
+    this.config.uploader && typeof this.config.uploader.uploadByUrl == "function" ? (a = this.config.uploader.uploadByUrl(i), O(a) || console.warn("Custom uploader method uploadByUrl should return a Promise")) : a = S.post({
       url: this.config.endpoints.byUrl,
       data: Object.assign({
         url: i
       }, this.config.additionalRequestData),
-      type: _.contentType.JSON,
+      type: S.contentType.JSON,
       headers: this.config.additionalRequestHeaders
     }).then((s) => s.body), a.then((s) => {
       this.onUpload(s);
@@ -755,10 +755,10 @@ class A {
       const e = new FormData();
       e.append(this.config.field ?? "image", i), this.config.additionalRequestData && Object.keys(this.config.additionalRequestData).length && Object.entries(this.config.additionalRequestData).forEach(([o, d]) => {
         e.append(o, d);
-      }), r = _.post({
+      }), r = S.post({
         url: this.config.endpoints.byFile,
         data: e,
-        type: _.contentType.JSON,
+        type: S.contentType.JSON,
         headers: this.config.additionalRequestHeaders
       }).then((o) => o.body);
     }
@@ -1021,7 +1021,7 @@ class P {
    * @param data - data in Image Tool format
    */
   set data(i) {
-    this.image = i.file, this._data.caption = i.caption || "", this.ui.fillCaption(this._data.caption), P.tunes.forEach(({ name: a }) => {
+    this.image = i.file, this.ui.fillCaption(i.caption || ""), P.tunes.forEach(({ name: a }) => {
       const s = typeof i[a] < "u" ? i[a] === !0 || i[a] === "true" : !1;
       this.setTune(a, s);
     });
@@ -1061,7 +1061,7 @@ class P {
    * @param tuneName - tune that has been clicked
    */
   tuneToggled(i) {
-    this.setTune(i, !this._data[i]), i === "caption" && !this._data[i] && (this._data.caption = "", this.ui.fillCaption(""));
+    this.setTune(i, !this._data[i]), i === "caption" && !this._data[i] && this.ui.fillCaption("");
   }
   /**
    * Set one tune

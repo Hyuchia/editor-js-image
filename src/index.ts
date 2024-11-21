@@ -360,8 +360,7 @@ export default class ImageTool implements BlockTool {
   private set data(data: ImageToolData) {
     this.image = data.file;
 
-    this._data.caption = data.caption || '';
-    this.ui.fillCaption(this._data.caption);
+    this.ui.fillCaption(data.caption || '');
 
     ImageTool.tunes.forEach(({ name: tune }) => {
       const value = typeof data[tune as keyof ImageToolData] !== 'undefined' ? data[tune as keyof ImageToolData] === true || data[tune as keyof ImageToolData] === 'true' : false;
@@ -425,7 +424,6 @@ export default class ImageTool implements BlockTool {
 
     // reset caption on toggle
     if (tuneName === 'caption' && !this._data[tuneName]) {
-      this._data.caption = '';
       this.ui.fillCaption('');
     }
   }
